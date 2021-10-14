@@ -39,10 +39,26 @@ namespace Lesson1
             set { apartment = value; }
         }
 
-        public Address()
-        { 
-        
+        public Address(string index, string country, string city, string street, string house, string apartment)
+        {
+            Index = index;
+            Country = country;
+            City = city;
+            Street = street;
+            House = house;
+            Apartment = apartment;
         }
+
+        public override string ToString()
+        {
+            return string.Format($"{Index}, {Country}, {City}, {Street}, {House}, {Apartment}");
+        }
+
+        public string GetAddress()
+        { 
+            return string.Format($"Indes: {Index}, Country: {Country}, City: {City}, Street: {Street}, House: {House}, Apartment: {Apartment}");
+        }
+
 
     }
 }
