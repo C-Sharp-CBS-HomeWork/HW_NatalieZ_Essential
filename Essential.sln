@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lesson1", "Lesson1\Lesson1.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lesson3", "Lesson2\Lesson3.csproj", "{D7EE2D19-4536-4598-A9A9-AA6BEF83C5C8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Essential", "Essential", "{AAC8FCE7-1A92-494E-B52A-1CADCF8C90AE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,10 +24,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{47DADD00-F41C-4DDD-B0BC-EC1D15BBB03D} = {AAC8FCE7-1A92-494E-B52A-1CADCF8C90AE}
-		{D7EE2D19-4536-4598-A9A9-AA6BEF83C5C8} = {AAC8FCE7-1A92-494E-B52A-1CADCF8C90AE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B8FD1733-2BAA-4980-9A44-1B988D126786}
