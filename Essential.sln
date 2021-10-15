@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lesson1", "Lesson1\Lesson1.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lesson2", "Lesson2\Lesson2.csproj", "{D7EE2D19-4536-4598-A9A9-AA6BEF83C5C8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Esential", "Esential", "{AAC8FCE7-1A92-494E-B52A-1CADCF8C90AE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Essential", "Essential", "{AAC8FCE7-1A92-494E-B52A-1CADCF8C90AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
