@@ -30,6 +30,16 @@ namespace Lesson7
 
         }
 
+        struct Train
+        {
+            public string destination;
+            public string number;
+            public DateTime time;
+        }
+
+        Train[] trains = new Train[8];
+
+
         struct MyStruct
         {
             public string change;
@@ -41,6 +51,7 @@ namespace Lesson7
         public Form1()
         {
             InitializeComponent();
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -69,6 +80,7 @@ namespace Lesson7
 
             lblClass.Text += myClass.change;
             lblStruct.Text += myStruct.change;
+
         }
 
         static void ClassTaker(MyClass myClass)
@@ -79,6 +91,62 @@ namespace Lesson7
         static void StruktTaker(MyStruct myStruct)
         {
             myStruct.change = "changed";
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtDestination.Text) || string.IsNullOrEmpty(txtTrainNum.Text))
+            {
+                MessageBox.Show("Fill all the fields, please.", "Empty fields");
+                return;
+            }
+            int count = trains.Where(x => string.IsNullOrEmpty(x.destination)).Count();
+            if (count == 0)
+            {
+                MessageBox.Show("All records are filed, not possible to add new one.");
+                return;
+            }
+            for (int i = 0; i < trains.Length; i++)
+            {
+                if (string.IsNullOrEmpty(trains[i].destination))
+                {
+                    trains[i].destination = txtDestination.Text;
+                    trains[i].number = txtTrainNum.Text;
+                    trains[i].time = dtTime.Value;
+                    break;
+                }
+            }
+            trains = trains.Where(x => ( !string.IsNullOrEmpty(x.destination))).OrderBy(x => x.number).Concat(trains.Where(x => (string.IsNullOrEmpty(x.destination)))).ToArray();
+            listBoxTrains.Items.Clear();
+            for (int i = 0; i < trains.Length; i++)
+            {
+                if (!string.IsNullOrEmpty(trains[i].destination))
+                {
+                    listBoxTrains.Items.Insert(i, item: $"Train: {trains[i].number}, Destination: {trains[i].destination}, Time: {trains[i].time.TimeOfDay.ToString("hh\\:mm") }");
+                }
+            }
+        }
+
+        private void btnFind_Click(object sender, EventArgs e)
+        {
+            bool found = false;
+            if(string.IsNullOrEmpty(txtFindNum.Text))
+            {
+                MessageBox.Show("Enter train number, please.", "Empty field");
+                return;
+            }
+            for (int i = 0; i < trains.Length; i++)
+            {
+                if (trains[i].number == txtFindNum.Text)
+                {
+                    listBoxTrains.SelectedIndex = i;
+                    found = true;
+                }
+            }
+            if (!found)
+            {
+                MessageBox.Show($"Train number {txtFindNum.Text} is not found!");
+            }
         }
     }
 }
