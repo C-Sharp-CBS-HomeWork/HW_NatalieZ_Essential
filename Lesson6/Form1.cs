@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Lesson6.MusicNotes;
+using Lesson6.Calculator;
 using System.IO;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.Devices;
@@ -171,6 +172,41 @@ namespace Lesson6
             lblStatus.Text = "Ready to play.";
             btnPlay.Enabled = true;
             
+        }
+
+        private void btnGetNumbers_Click(object sender, EventArgs e)
+        {
+            Random random = new Random();
+            lblNumA.Text = Math.Round(random.NextDouble() * random.Next(-10000, 10000), 3).ToString();
+            lblNumB.Text = Math.Round(random.NextDouble() * random.Next(-10000, 10000), 3).ToString();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            lblResult.Text = Calculator.Calculator.Add(double.Parse(lblNumA.Text), double.Parse(lblNumB.Text)).ToString();
+        }
+
+        private void btnSub_Click(object sender, EventArgs e)
+        {
+            lblResult.Text = Calculator.Calculator.Sub(double.Parse(lblNumA.Text), double.Parse(lblNumB.Text)).ToString();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblResult.Text = Calculator.Calculator.Div(double.Parse(lblNumA.Text), double.Parse(lblNumB.Text)).ToString();
+            }
+            catch(ArgumentOutOfRangeException ex)
+            {
+                lblResult.Text = ex.Message;
+            }
+
+        }
+
+        private void btnMult_Click(object sender, EventArgs e)
+        {
+            lblResult.Text = Calculator.Calculator.Mult(double.Parse(lblNumA.Text), double.Parse(lblNumB.Text)).ToString();
         }
     }
 }
