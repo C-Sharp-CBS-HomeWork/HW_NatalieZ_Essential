@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Linq;
 namespace Lesson9
 {
     class Program
@@ -102,9 +102,15 @@ namespace Lesson9
             {
                 myRandomIntArray[i] = myRandomInt;
             }
+            double result;
             AvarageOfArray avarageOfArray = (MyRandomInt[] myRandomIntArray) =>
             { 
                 double temp = 0;
+                result = myRandomIntArray.Sum(x => x()) / myRandomIntArray.Length;
+                //Console.WriteLine($"Sum is {Math.Round((decimal)result, 2)}");
+                //result = result / myRandomIntArray.Length;
+                Console.WriteLine($"Length is {myRandomIntArray.Length}");
+                Console.WriteLine($"Avarage is {Math.Round((decimal)result, 3)}");
                 for (int i = 0; i < myRandomIntArray.Length; i++)
                 {
                     int t = myRandomIntArray[i]();
@@ -115,7 +121,7 @@ namespace Lesson9
                 return (double)temp / myRandomIntArray.Length; 
             };
 
-            double result = avarageOfArray(myRandomIntArray);
+            result = avarageOfArray(myRandomIntArray);
             Console.WriteLine($"Avarage is {Math.Round(result, 3)}");
             #endregion
 
