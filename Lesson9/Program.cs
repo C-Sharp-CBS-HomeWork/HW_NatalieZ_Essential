@@ -5,9 +5,9 @@ namespace Lesson9
     class Program
     {
         public delegate double Avarage(int a, int b, int c);
-        public delegate double mathMethods(int a, int b);
-        public delegate int myRandomInt();
-        public delegate double AvarageOfArray(myRandomInt[] arr);
+        public delegate double MathMethods(int a, int b);
+        public delegate int MyRandomInt();
+        public delegate double AvarageOfArray(MyRandomInt[] arr);
 
         static Random random = new Random();
 
@@ -18,7 +18,7 @@ namespace Lesson9
             int a = 10; int b = 11; int c = 5;
             Avarage avarage = delegate (int a, int b, int c) { return (double)(a + b + c) / 3; };
             double avr = avarage(a, b, c);
-            Console.WriteLine($"({a} + {b} + {c}) / 3 = {Math.Round(avr,2)}");
+            Console.WriteLine($"({a} + {b} + {c}) / 3 = {Math.Round(avr, 2)}");
             #endregion
 
             #region task2
@@ -28,10 +28,10 @@ namespace Lesson9
             b = random.Next(-1000, 1000);
             Console.WriteLine($"a = {a}; b =  {b} ");
 
-            mathMethods Add = (int a, int b) => { return a + b; };
-            mathMethods Sub = (int a, int b) => { return a - b; };
-            mathMethods Mul = (int a, int b) => { return a * b; };
-            mathMethods Div = (int a, int b) => { return b != 0 ? (double)a/b : double.NaN; };
+            MathMethods Add = (int a, int b) => { return a + b; };
+            MathMethods Sub = (int a, int b) => { return a - b; };
+            MathMethods Mul = (int a, int b) => { return a * b; };
+            MathMethods Div = (int a, int b) => { return b != 0 ? (double)a / b : double.NaN; };
 
             int selection;
             bool doOperation = true;
@@ -44,8 +44,8 @@ namespace Lesson9
                 {
                     if (selection == 6)
                     {
-                        Console.WriteLine("Exit!"); 
-                        doOperation = false; 
+                        Console.WriteLine("Exit!");
+                        doOperation = false;
                     }
                     else
                     {
@@ -61,7 +61,7 @@ namespace Lesson9
                                 Console.WriteLine($"{a} * {b} = {Mul(a, b)}");
                                 break;
                             case 4:
-                                Console.WriteLine($"{a} / {b} = {Math.Round(Div(a, b),2)}");
+                                Console.WriteLine($"{a} / {b} = {Math.Round(Div(a, b), 2)}");
                                 break;
                             case 5:
                                 a = random.Next(-1000, 1000);
@@ -84,10 +84,25 @@ namespace Lesson9
 
             #region Task 3
 
-            myRandomInt myRandomInt = () => random.Next(-100, 100);
-            //myRandomInt myRandomInt = RandomIntValue;
-            myRandomInt[] myRandomIntArray = new myRandomInt[5] { myRandomInt, myRandomInt, myRandomInt, myRandomInt, myRandomInt };
-            AvarageOfArray avarageOfArray = (myRandomInt[] myRandomIntArray) =>
+            MyRandomInt myRandomInt = () => random.Next(-100, 100);
+            int count = 0;
+            Console.Write("Enter number of elements in array (<1000): ");
+            if (!int.TryParse(Console.ReadLine(), out count) || count == 0) 
+            {
+                Console.WriteLine("Not a number or 0, will be created 10 elements!");
+                count = 10;
+            }
+            else if (count > 1000)
+            {
+                Console.WriteLine("Too big number. Will be created 1000 elements!");
+                count = 1000;
+            }
+            MyRandomInt[] myRandomIntArray = new MyRandomInt[count];
+            for (int i = 0; i < count; i++)
+            {
+                myRandomIntArray[i] = myRandomInt;
+            }
+            AvarageOfArray avarageOfArray = (MyRandomInt[] myRandomIntArray) =>
             { 
                 double temp = 0;
                 for (int i = 0; i < myRandomIntArray.Length; i++)
@@ -101,7 +116,7 @@ namespace Lesson9
             };
 
             double result = avarageOfArray(myRandomIntArray);
-            Console.WriteLine($"(Avarage is {Math.Round(result, 2)}");
+            Console.WriteLine($"Avarage is {Math.Round(result, 3)}");
             #endregion
 
         }
