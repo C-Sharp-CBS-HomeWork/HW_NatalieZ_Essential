@@ -20,8 +20,7 @@ namespace Lesson10_11
             Dictionary<int, string> dict = new Dictionary<int, string>();
             MyList<int> l2 = new MyList<int>(arr);
 
-            l.Sort(CompSort());
-
+            
             Console.WriteLine("List l");
             l.ForEach(x => Console.WriteLine(x));
             Console.WriteLine("List l2");
