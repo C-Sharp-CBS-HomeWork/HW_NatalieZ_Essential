@@ -6,15 +6,15 @@ namespace Lesson13_Matrix
 {
     public class RainDrop
     {
-        //private char[] drops;
         private Random random = new Random();
         private int _length;
         private int _x;
         private int _maxY;
         private bool firstRun = true;
-        private const int speed = 700;
         private int _delay;
-        private char _char = '0';
+        private const int speed = 300;
+       // добавил объект синхронизации, который должен быть статическим)))
+        static object block = new object();
 
         enum DropType 
         { 
@@ -24,11 +24,11 @@ namespace Lesson13_Matrix
             Clear
         }
 
-        //public char[] Drops { get => drops; set => drops = value; }
         public int Length { get => _length; }
         public int X { get => _x; }
         public int MaxY { get => _maxY; }
         public int Delay { get => _delay; }
+        public int Speed { get => speed; }
 
         public RainDrop(int x, int length)
         {
@@ -49,28 +49,23 @@ namespace Lesson13_Matrix
             _maxY = maxY;
             _delay = delay;
         }
-        public RainDrop(int x, int length, int maxY, int delay, char symb)
-        {
-            _length = length < 3 ? 3 : length;
-            _x = x;
-            _maxY = maxY;
-            _delay = delay;
-            _char = symb;
-        }
 
         public void Draw(int y)
         {
-            
-            if (y == MaxY-1)
+            // тут поставил лок, скорее всего проблема была только в отрисовке
+            lock (block)
             {
-                firstRun = false;
-            }
-            Clearlast(y - Length);
-            DrawFirst(y);
-            DrawSecond(y-1);
-            for (int i = 2; i < Length; i++)
-            {
-                DrawOther(y-i);
+                if (y == MaxY - 1)
+                {
+                    firstRun = false;
+                }
+                Clearlast(y - Length);
+                DrawFirst(y);
+                DrawSecond(y - 1);
+                for (int i = 2; i < Length; i++)
+                {
+                    DrawOther(y - i);
+                }
             }
             System.Threading.Thread.Sleep(speed);
 
@@ -80,8 +75,6 @@ namespace Lesson13_Matrix
         {
             int y = 0;
             System.Threading.Thread.Sleep(Delay);
-            object locker = new object();
-            lock (locker)
             {
                 while (true)
                 {
@@ -116,8 +109,8 @@ namespace Lesson13_Matrix
 
         private void DrawOne(int y, DropType dropType)
         {
-            object locker = new object();
-            char c = ' ';
+            {
+                char c = ' ';
                 if (y < 0)
                 {
                     if (firstRun)
@@ -129,7 +122,7 @@ namespace Lesson13_Matrix
                         y += MaxY;
                     }
                 }
-            
+
                 if (dropType == DropType.First)
                 {
                     Console.ForegroundColor = ConsoleColor.White;
@@ -143,17 +136,17 @@ namespace Lesson13_Matrix
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                 }
 
-               if (dropType == DropType.Clear)
+                if (dropType == DropType.Clear)
                 {
                     c = ' ';
                 }
                 else
                 {
-                    //Console.Write(GetChar());
-                    c = _char;
+                    c = GetChar();
                 }
                 Console.SetCursorPosition(X, y);
                 Console.Write(c);
+            }
 
         }
 

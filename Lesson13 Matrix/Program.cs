@@ -8,51 +8,27 @@ namespace Lesson13_Matrix
         static Random random = new Random();
         static int width = Console.WindowWidth;
         static int height = Console.WindowHeight;
-        static int length = random.Next(10);
 
         static void Main(string[] args)
         {
-            int count = 3;
+            int x = 0;
             Console.CursorVisible = false;
-            //RainDrop[] rainDrops = new RainDrop[width];
-            RainDrop[] rainDrops = new RainDrop[3];
-            //Thread[] threads = new Thread[width];
-            Thread[] threads = new Thread[3];
+            int delay;
+            RainDrop[] rainDrops = new RainDrop[width*2];
+            Thread[] threads = new Thread[width*2];
 
-            //            for (int i = 10; i < 50; i=i+10)
-            //            {
-            //                rainDrops[i] = new RainDrop(i, random.Next(10), height, random.Next(1000, 10000) );
-            //                threads[i] = new Thread(rainDrops[i].Slide);
-            //                threads[i].Start();
-            //;            }
-
-
-            //for (int i = 0; i < count; i++)
-            //{
-            //    //rainDrops[i] = new RainDrop(i * 10 + 5, random.Next(10), height, random.Next(0, 10000));
-            //    rainDrops[i] = new RainDrop(i * 10 + 5, random.Next(3, 10), height);
-            //}
-            //for (int i = 0; i < count; i++)
-            //{
-            //    threads[i] = new Thread(rainDrops[i].Slide);
-            //}
-            //for (int i = 0; i < count; i++)
-            //{
-            //    threads[i].Start();
-
-            //}
-
-
-            RainDrop rainDrop1 = new RainDrop(10, random.Next(3, 10), height, random.Next(1000, 10000), '0');
-            Thread thread1 = new Thread(rainDrop1.Slide);
-
-            RainDrop rainDrop2 = new RainDrop(20, random.Next(3, 10), height, random.Next(1000, 10000), '1');
-            Thread thread2 = new Thread(rainDrop2.Slide);
-            RainDrop rainDrop3 = new RainDrop(30, random.Next(3, 10), height, random.Next(1000, 10000), '2');
-            thread1.Start();
-            thread2.Start();
-
-            rainDrop3.Slide();
+            for (int i = 0; i < width*2; i+=2)
+            {
+                delay = random.Next(1000, 10000);
+                rainDrops[i] = new RainDrop(x, random.Next(10), height, delay);
+                threads[i] = new Thread(rainDrops[i].Slide);
+                threads[i].Start();
+                delay += rainDrops[i].Speed * 10 + 1000;
+                rainDrops[i+1] = new RainDrop(x, random.Next(10), height, delay);
+                threads[i+1] = new Thread(rainDrops[i+1].Slide);
+                threads[i+1].Start();
+                x++;
+            }
         }
 
     }
